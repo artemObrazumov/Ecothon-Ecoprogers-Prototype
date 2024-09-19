@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -41,6 +42,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ecoprogers.ecothon.R
+import com.ecoprogers.ecothon.data.UserProgress
 import com.ecoprogers.ecothon.domain.models.Plant
 import com.ecoprogers.ecothon.presentation.components.CollapsedTopBar
 import com.ecoprogers.ecothon.presentation.plant.PlantViewModel
@@ -101,7 +103,8 @@ fun DashboardScreenContent(
                     item(span = { GridItemSpan(2) }) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Image(
-                                painter = painterResource(id = R.drawable.coin),
+                                modifier = Modifier.size(84.dp),
+                                painter = painterResource(id = R.drawable.user),
                                 contentDescription = null
                             )
                             Spacer(modifier = Modifier.width(4.dp))
@@ -123,7 +126,7 @@ fun DashboardScreenContent(
                                     )
                                     Spacer(modifier = Modifier.width(4.dp))
                                     Text(
-                                        text = "10",
+                                        text = UserProgress.userScore.toString(),
                                         style = MaterialTheme.typography.headlineSmall)
                                 }
                             }

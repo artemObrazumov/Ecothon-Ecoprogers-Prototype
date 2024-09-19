@@ -49,6 +49,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ecoprogers.ecothon.R
+import com.ecoprogers.ecothon.data.UserProgress
 import com.ecoprogers.ecothon.presentation.PlantDetails
 import com.ecoprogers.ecothon.presentation.plant.PlantScreenContent
 import com.ecoprogers.ecothon.presentation.plant.PlantScreenState
@@ -166,6 +167,7 @@ fun PlantDetailsScreenContent(
                 }
                 LaunchedEffect(true) {
                     vis = true
+                    UserProgress.userScore += 10
                 }
             }
         }
