@@ -242,7 +242,7 @@ fun PlantScreenContent(
                                     mapView.value!!.mapWindow.map.move(
                                         CameraPosition(
                                             Point(firstMapPoint.latitude, firstMapPoint.longitude),
-                                            20.0f,
+                                            19.0f,
                                             0f,
                                             0f
                                         )
