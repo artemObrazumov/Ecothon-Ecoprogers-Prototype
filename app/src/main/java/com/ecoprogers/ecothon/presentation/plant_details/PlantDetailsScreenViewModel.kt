@@ -22,7 +22,7 @@ class PlantDetailsScreenViewModel: ViewModel() {
 
     private fun loadPlant() {
         viewModelScope.launch(Dispatchers.IO) {
-            delay(500L)
+            delay(3000L)
             _state.emit(
                 PlantScreenState.Content(
                     PlantsApi.loadPlant("3")

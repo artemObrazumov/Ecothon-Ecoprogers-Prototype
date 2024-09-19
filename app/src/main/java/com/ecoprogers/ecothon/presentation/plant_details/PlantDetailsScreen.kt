@@ -130,14 +130,14 @@ fun PlantDetailsScreenContent(
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 items(
-                                    items = listOf(1,2,3)
+                                    items = state.plant.images
                                 ) {
                                     Image(
                                         modifier = Modifier
                                             .clip(RoundedCornerShape(8.dp))
-                                            .height(260.dp)
-                                            .aspectRatio(1.4f),
-                                        painter = painterResource(id = R.drawable.testimage),
+                                            .height(200.dp)
+                                            .aspectRatio(1.2f),
+                                        painter = painterResource(id = it),
                                         contentDescription = null,
                                         contentScale = ContentScale.Crop,
                                     )

@@ -2,18 +2,21 @@ package com.ecoprogers.ecothon.presentation.plant
 
 import android.graphics.drawable.Icon
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -34,8 +37,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.ViewModel
@@ -54,6 +59,10 @@ import com.yandex.mapkit.map.MapObject
 import com.yandex.mapkit.map.MapObjectTapListener
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun PlantScreen(
@@ -210,6 +219,41 @@ fun PlantScreenContent(
                                 ) {
                                     Column {
                                         Text(
+                                            text = "Изображения",
+                                            style = MaterialTheme.typography.headlineSmall
+                                        )
+                                        Spacer(modifier = Modifier.height(4.dp))
+                                        LazyRow(
+                                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                        ) {
+                                            items(
+                                                items = state.plant.images
+                                            ) {
+                                                Image(
+                                                    modifier = Modifier
+                                                        .clip(RoundedCornerShape(8.dp))
+                                                        .height(260.dp)
+                                                        .aspectRatio(1.4f),
+                                                    painter = painterResource(id = it),
+                                                    contentDescription = null,
+                                                    contentScale = ContentScale.Crop,
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 8.dp)
+                                        .clip(RoundedCornerShape(8.dp))
+                                        .background(MaterialTheme.colorScheme.primary)
+                                        .padding(8.dp)
+                                ) {
+                                    Column {
+                                        Text(
                                             text = "На карте",
                                             style = MaterialTheme.typography.headlineSmall
                                         )
@@ -263,7 +307,7 @@ fun PlantScreenContent(
                                                 IconStyle().apply { scale = 0.14f }
                                             )
                                         }
-                                    mark.addTapListener(object : MapObjectTapListener {
+                                    val listener = object : MapObjectTapListener {
                                         override fun onMapObjectTap(
                                             p0: MapObject,
                                             p1: Point
@@ -272,9 +316,11 @@ fun PlantScreenContent(
                                             println(mapPoint.id)
                                             return true
                                         }
-
                                     }
-                                    )
+                                    CoroutineScope(Dispatchers.Main).launch {
+                                        delay(200L)
+                                        mark.addTapListener(listener)
+                                    }
                                 }
                             }
                         }

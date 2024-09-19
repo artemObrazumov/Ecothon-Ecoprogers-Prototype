@@ -130,17 +130,6 @@ fun PlantOnMapInfoScreenContent(
                         }
                     }
                 }
-                item {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(MaterialTheme.colorScheme.primary)
-                            .padding(8.dp)
-                    ) {
-
-                    }
-                }
                 item { Spacer(modifier = Modifier.height(PlantOnMapPhotoSize)) }
             }
         }
