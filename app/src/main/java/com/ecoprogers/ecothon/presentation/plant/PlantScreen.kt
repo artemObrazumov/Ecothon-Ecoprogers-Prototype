@@ -130,10 +130,10 @@ fun PlantScreenContent(
                             item {
                                 ExpandedTopBar(
                                     title = state.plant.name,
-                                    image = state.plant.image
+                                    image = state.plant.images[0]
                                 )
                             }
-                            item { 
+                            item {
                                 Box(
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -242,7 +242,7 @@ fun PlantScreenContent(
                                     mapView.value!!.mapWindow.map.move(
                                         CameraPosition(
                                             Point(firstMapPoint.latitude, firstMapPoint.longitude),
-                                            17.0f,
+                                            20.0f,
                                             0f,
                                             0f
                                         )
@@ -255,18 +255,26 @@ fun PlantScreenContent(
                                     )
                                 state.plant.mapPoints.forEach { stringPoint ->
                                     val mapPoint = stringPoint.toMapPoint()
-                                    mapView.value!!.map.mapObjects
+                                    val mark = mapView.value!!.map.mapObjects
                                         .addPlacemark().apply {
                                             geometry = Point(mapPoint.latitude, mapPoint.longitude)
                                             setIcon(imageProvider)
                                             setIconStyle(
-                                                IconStyle().apply { scale = 0.1f }
+                                                IconStyle().apply { scale = 0.14f }
                                             )
-                                            addTapListener { p0, p1 ->
-                                                onOpenPlantOnMapInfo(mapPoint.id)
-                                                true
-                                            }
                                         }
+                                    mark.addTapListener(object : MapObjectTapListener {
+                                        override fun onMapObjectTap(
+                                            p0: MapObject,
+                                            p1: Point
+                                        ): Boolean {
+                                            onOpenPlantOnMapInfo(mapPoint.id)
+                                            println(mapPoint.id)
+                                            return true
+                                        }
+
+                                    }
+                                    )
                                 }
                             }
                         }

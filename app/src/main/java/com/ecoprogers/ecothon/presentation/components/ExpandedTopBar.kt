@@ -27,7 +27,7 @@ import com.ecoprogers.ecothon.R
 @Composable
 fun ExpandedTopBar(
     title: String = "",
-    image: String = ""
+    image: Int
 ) {
     Box(
         modifier = Modifier
@@ -38,7 +38,7 @@ fun ExpandedTopBar(
     ) {
         Image(
             modifier = Modifier.fillMaxSize(),
-            painter = painterResource(R.drawable.testimage),
+            painter = painterResource(image),
             contentDescription = null,
             contentScale = ContentScale.Crop,
         )

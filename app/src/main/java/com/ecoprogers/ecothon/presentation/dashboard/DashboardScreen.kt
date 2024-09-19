@@ -103,7 +103,7 @@ fun DashboardScreenContent(
                     item(span = { GridItemSpan(2) }) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Image(
-                                modifier = Modifier.size(84.dp),
+                                modifier = Modifier.size(48.dp),
                                 painter = painterResource(id = R.drawable.user),
                                 contentDescription = null
                             )
@@ -169,7 +169,7 @@ fun PlantItem(
                 modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(1f),
-                painter = painterResource(R.drawable.testimage),
+                painter = painterResource(plant.images[0]),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
             )

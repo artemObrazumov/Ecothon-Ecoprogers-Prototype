@@ -25,7 +25,7 @@ class PlantDetailsScreenViewModel: ViewModel() {
             delay(500L)
             _state.emit(
                 PlantScreenState.Content(
-                    PlantsApi.loadPlant("")
+                    PlantsApi.loadPlant("3")
                 )
             )
         }

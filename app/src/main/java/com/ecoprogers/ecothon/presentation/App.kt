@@ -60,7 +60,7 @@ fun App(modifier: Modifier = Modifier) {
 
         NavHost(
             navController = navController,
-            startDestination = PlantOnMap("1")
+            startDestination = Dashboard
         ) {
             composable<Dashboard> {
                 DashboardScreen(
@@ -71,7 +71,9 @@ fun App(modifier: Modifier = Modifier) {
                 PlantScreen(
                     modifier = modifier,
                     plantId = (it.toRoute() as PlantInfo).id,
-                    onOpenPlantOnMapInfo = {}
+                    onOpenPlantOnMapInfo = { plantId ->
+                        navController.navigate(PlantOnMap(plantId))
+                    }
                 )
             }
             composable<Camera>(

@@ -32,6 +32,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -85,41 +86,13 @@ fun PlantOnMapInfoScreenContent(
                     title = state.info.name,
                     padding = PaddingValues(top = 16.dp, start = 8.dp, end = 0.dp)
                 )
-                Row(
-                    modifier = Modifier
-                        .padding(horizontal = 8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    state.info.parametersByYears.forEach { (year, _) ->
-                        Box(
-                            modifier = Modifier
-                                .weight(1f)
-                                .clip(RoundedCornerShape(8.dp))
-                                .background(
-                                    if (parameterId == year) MaterialTheme.colorScheme.secondary
-                                    else MaterialTheme.colorScheme.primary
-                                )
-                                .clickable {
-                                    parameterId = year
-                                }
-                                .padding(8.dp)
-                        ) {
-                            Text(
-                                text = year,
-                                color = if (parameterId == year) Color.White
-                                else Color.Black,
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                    }
-                }
                 Image(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)
                         .padding(8.dp)
                         .clip(RoundedCornerShape(8.dp)),
-                    painter = painterResource(id = R.drawable.testimage),
+                    painter = painterResource(id = parameters!!.photo),
                     contentDescription = null,
                     contentScale = ContentScale.Crop
                 )
@@ -129,6 +102,34 @@ fun PlantOnMapInfoScreenContent(
                 modifier = Modifier.padding(horizontal = 8.dp)
             ) {
                 item { Spacer(modifier = Modifier.height(PlantOnMapPhotoSize)) }
+                item {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        state.info.parametersByYears.forEach { (year, _) ->
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(
+                                        if (parameterId == year) MaterialTheme.colorScheme.secondary
+                                        else MaterialTheme.colorScheme.primary
+                                    )
+                                    .clickable {
+                                        parameterId = year
+                                    }
+                                    .padding(8.dp)
+                            ) {
+                                Text(
+                                    text = year,
+                                    color = if (parameterId == year) Color.White
+                                    else Color.Black,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                        }
+                    }
+                }
                 item {
                     Box(
                         modifier = Modifier
